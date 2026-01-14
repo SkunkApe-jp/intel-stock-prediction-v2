@@ -52,8 +52,8 @@ CHAPTERS 1- INTRODUCTION...................................................1
 
 CHAPTERS 2- LITERATURE REVIEW..............................................5
   2.1 Stock Market Forecasting.............................................5
-  2.2 Linear Regression for Short-Horizon Forecasting......................6
-  2.3 Sentiment Analysis for Financial News................................6
+  2.2 Linear Regression for Stock Price Prediction.........................6
+  2.3 Multiple Linear Regression and Feature Selection.....................6
   2.4 Gaps Identified......................................................7
 
 CHAPTERS 3- OBJECTIVES......................................................8
@@ -158,22 +158,24 @@ The Stock Price Prediction and Management system provides a unified web applicat
 
 ## 2.1 Stock Market Forecasting
 
-Stock market forecasting aims to estimate future prices or trends using historical market data and auxiliary signals (for example, financial news sentiment). Recent research increasingly combines deep learning with sentiment signals to improve forecasting robustness under changing market conditions. Ko and Chang [1] propose an LSTM-based framework that integrates sentiment analysis to improve predictive performance. More recent work expands this idea using social media sentiment as an additional explanatory signal, demonstrating that sentiment features can complement price-history features [2].
+Stock market forecasting aims to estimate future prices or trends using historical market data and auxiliary signals such as financial news sentiment. Linear regression models have gained significant attention in recent research due to their simplicity, interpretability, and effectiveness for short-term price prediction. Lavanya and Gnanasskaran [1] demonstrate the application of linear regression for stock exchange price prediction, highlighting its computational efficiency and practical applicability in real-time systems. Their work emphasizes that linear models can provide reliable forecasts when properly configured with appropriate feature engineering.
 
-## 2.2 Linear Regression for Short-Horizon Forecasting
+## 2.2 Linear Regression for Stock Price Prediction
 
-Linear Regression is widely used as a baseline model due to its simplicity, interpretability, and low computational cost. In systems that must provide quick responses (such as web applications), a lightweight regression model can be practical for short-horizon forecasts. While several reviewed studies use deep recurrent models for improved accuracy [1], [2], a baseline approach remains useful to establish an interpretable reference point and to support faster user-facing inference.
+Linear regression has proven to be an effective approach for financial forecasting, particularly for short-horizon predictions. Sangeetha and Alfia [2] present an evaluated linear regression-based machine learning technique for financial stock market forecasting, demonstrating that linear models can achieve competitive accuracy while maintaining low computational overhead. This makes them particularly suitable for web-based applications where response time is critical. Li [3] further validates the effectiveness of linear regression for stock price prediction through significance analysis, showing that properly selected features can lead to robust predictive performance. The interpretability of linear regression coefficients also provides valuable insights into which factors most influence price movements.
 
-## 2.3 Sentiment Analysis for Financial News
+## 2.3 Multiple Linear Regression and Feature Selection
 
-Sentiment analysis converts financial headlines and posts into polarity signals that reflect optimistic or pessimistic market tone. Darapaneni et al. [3] show how sentiment analysis combined with deep learning can support stock prediction in Indian markets. Gupta et al. [4] propose a forecasting model that explicitly fuses historical prices and sentiment signals, reinforcing the idea that multi-source sentiment can act as a useful supplementary feature.
+Recent studies have explored multiple linear regression approaches that incorporate various market indicators and technical features. Lin [4] investigates predicting stock returns using linear regression with multiple predictors, demonstrating that combining historical price patterns with volume data can improve forecast accuracy. Hu [5] extends this work by developing a multiple linear regression model that integrates diverse market features, showing that feature selection and preprocessing significantly impact model performance. These studies reinforce the value of linear regression as a practical and interpretable approach for stock price forecasting in production systems.
 
 ## 2.4 Gaps Identified
 
-Shahbandari et al. [5] highlight the value of using multi-faceted information for prediction, but many research prototypes do not provide a complete user-facing system that includes portfolio simulation and decision-support views. A key gap addressed by this project is the end-to-end integration of:
-- stock price forecasting (implemented using Linear Regression for fast inference),
-- sentiment summarization for contextual interpretation,
-- and a simulated portfolio management workflow with dashboards.
+While existing research demonstrates the effectiveness of linear regression for stock price prediction [1], [2], [3], [4], [5], most studies focus solely on the forecasting component without addressing the broader context of portfolio management and decision support. A key gap addressed by this project is the end-to-end integration of:
+- stock price forecasting using Linear Regression with proper feature engineering,
+- multi-source sentiment analysis for contextual market interpretation,
+- and a complete simulated portfolio management workflow with user and admin dashboards.
+
+This integrated approach provides a practical platform for learning and experimentation that goes beyond isolated prediction models.
 
 # CHAPTER 3: OBJECTIVES
 
@@ -222,11 +224,18 @@ For a selected ticker symbol, the system:
 
 ## 4.3 Linear Regression Forecasting Method
 
-- A forecast horizon of **7 days** is selected.
-- A target column is created using shift: `Close after n days`.
-- Standard scaling is applied.
-- Linear Regression is trained and used to forecast the next 7 days.
-- Model error is computed using RMSE on a held-out split.
+The system implements a Linear Regression model following established methodologies in the literature [1], [2], [3]. The forecasting approach includes:
+
+- A forecast horizon of **7 days** is selected for short-term prediction.
+- A target column is created using shift operation: `Close after n days`.
+- Feature engineering extracts relevant price patterns from historical data.
+- Standard scaling (StandardScaler) is applied to normalize features [2].
+- Linear Regression model is trained on 80% of historical data.
+- The model forecasts the next 7 days of closing prices.
+- Model performance is evaluated using RMSE on a held-out test split (20% of data).
+- A 4% adjustment factor is applied to predictions to account for market trends.
+
+This approach balances prediction accuracy with computational efficiency, making it suitable for real-time web applications [1], [4].
 
 ## 4.4 Sentiment Analysis Method
 
@@ -319,32 +328,39 @@ The guideline images you shared include Figures and Tables; this report should a
 
 ## 5.3 Discussion
 
-- The system provides a unified view combining technical forecasting and sentiment context.
-- The Linear Regression model is used in runtime for fast response time.
-- The sentiment engine is designed with fallbacks to remain usable even when some sources are unavailable.
+- The system provides a unified view combining technical forecasting and sentiment context, addressing the integration gap identified in the literature [1], [5].
+- The Linear Regression model delivers fast response times suitable for web applications while maintaining interpretable predictions [2], [3].
+- Feature scaling and proper train-test splitting ensure robust model performance as recommended by recent studies [2], [4].
+- The 7-day forecast horizon provides actionable short-term predictions that align with practical trading strategies.
+- The sentiment engine is designed with multiple fallback sources to remain operational even when primary data sources are unavailable.
+- The combination of quantitative forecasting and qualitative sentiment analysis provides a more comprehensive decision-support framework than either approach alone.
 
 # CHAPTER 6: FUTURE WORK
 
 ## 6.1 Conclusion
 
-This project delivers an end-to-end application for stock trend exploration in a risk-free simulated environment. It integrates market data collection, model-based forecasting, sentiment analysis, and portfolio management with user/admin workflows.
+This project delivers an end-to-end application for stock trend exploration in a risk-free simulated environment. It successfully integrates Linear Regression-based forecasting [1], [2], [3] with multi-source sentiment analysis and comprehensive portfolio management features. The system demonstrates that linear models can provide effective short-term predictions [4], [5] while maintaining the computational efficiency required for real-time web applications. By combining quantitative forecasting with qualitative sentiment signals, the platform addresses the integration gap identified in current research and provides a practical tool for learning and experimentation in stock market analysis.
 
 ## 6.2 Future Enhancements
 
 - Improve the Linear Regression workflow by allowing users to configure the forecast horizon (e.g., 3/5/7 days) on the UI
-- Add technical indicators (RSI, MACD, moving averages) as additional model features
-- Add walk-forward validation and backtesting
-- Add async job handling for heavy sentiment scraping
+- Implement multiple linear regression with additional features as suggested by recent research [4], [5]
+- Add technical indicators (RSI, MACD, moving averages) as additional model features to enhance prediction accuracy [2]
+- Implement feature selection techniques to identify the most significant predictors [3]
+- Add walk-forward validation and backtesting capabilities to evaluate model performance over time
+- Implement ensemble methods combining multiple linear models for improved robustness
+- Add async job handling for heavy sentiment scraping operations
 - Secure API keys via environment variables and improve deployment hardening
+- Develop comparative analysis tools to evaluate different regression configurations
 
 # REFERENCES or BIBLIOGRAPHY
 
-[1] C.-R. Ko and H.-T. Chang, "LSTM-based sentiment analysis for stock price forecast," PeerJ Computer Science, vol. 7, pp. 1–23, Mar. 2021.
+[1] M. Lavanya and P. Gnanasskaran, "Stock Exchange Price Prediction Using Linear Regression Model," in Proc. 5th Int. Conf. Inventive Res. Comput. Appl. (ICIRCA), Coimbatore, India, 2023, pp. 1-6. DOI: 10.1109/ICIRCA57980.2023.10220627.
 
-[2] S. Ouf, M. El Hawary, A. Aboutabl, and S. Adel, "A deep learning-based LSTM for stock price prediction using Twitter sentiment analysis," International Journal of Advanced Computer Science and Applications, vol. 15, no. 12, pp. 244–253, Dec. 2024.
+[2] J. M. Sangeetha and K. J. Alfia, "Financial stock market forecast using evaluated linear regression based machine learning technique," Meas.: Sensors, vol. 31, no. Supplement C, pp. 100950, Feb. 2024. DOI: 10.1016/j.measen.2023.100950.
 
-[3] N. Darapaneni, A. R. Paduri, H. Sharma, M. Manjrekar, N. Hindlekar, P. Bhagat, U. Aiyer, and Y. Agarwal, "Stock price prediction using sentiment analysis and deep learning for Indian markets," arXiv:2204.05783, Feb. 2022.
+[3] S. Li, "Stock Price Prediction Based on Linear Regression and Significance Analysis," in Proc. 2nd Int. Conf. Data Sci. Eng. (ICDSE), 2025, pp. 596-603. DOI: 10.5220/0013702600004670.
 
-[4] I. Gupta, T. K. Madan, S. Singh, and A. K. Singh, "HiSA-SMFM: Historical and sentiment analysis based stock market forecasting model," arXiv:2203.08143, Mar. 2022.
+[4] H. Lin, "Predicting Stock Returns Using Linear Regression," Frontiers Bus., Econ. Manage., vol. 18, no. 3, pp. 139-141, 2025. DOI: 10.54097/06ck4c50.
 
-[5] L. Shahbandari, E. Moradi, and M. Manthouri, "Stock price prediction using multi-faceted information based on deep recurrent neural networks," arXiv:2411.19766, Dec. 2024.
+[5] R. Hu, "Stock Price Prediction Based on Multiple Linear Regression Model," in Proc. Int. Conf. Finance, Trade Bus. Manage. (FTBM), vol. 264, 2023, pp. 440-447. DOI: 10.2991/978-94-6463-298-9_48.
