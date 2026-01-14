@@ -1,0 +1,350 @@
+# PROJECT REPORT
+## STOCK PRICE PREDICTION AND MANAGEMENT
+
+**Project Type**: Full-Stack Web Application (Prediction + Sentiment + Portfolio Simulation)
+
+**Project Repository**: `intel-stock-pred`
+
+---
+
+# DECLARATION
+
+I/We hereby declare that the project report entitled "Stock Price Prediction and Management" is an authentic record of my/our own work carried out at the 
+____________________, during the 7th semester of the academic year 2025-2026 under the supervision of ____________________, Assistant Professor.
+
+I/We further declare that the matter embodied in this project report has not been submitted by me/us for the award of any other degree or diploma of this or any other Institute/University.
+
+Place:...
+Date:
+
+[Signature of Student 1] (Name: ____________________, Roll No: ____________________)
+
+[Signature of Student 2] (Name: ____________________, Roll No: ____________________)
+
+# ACKNOWLEDGMENTS (Optional)
+
+I would like to express my sincere gratitude to ____________________ for guidance and support throughout the project. I also thank ____________________ for providing the resources and environment necessary to complete this work.
+
+# ABSTRACT
+
+This project implements a full-stack **Stock Price Prediction and Management** system that integrates **Linear Regression-based stock price forecasting** with **financial news sentiment analysis**, embedded into a simulated trading and portfolio management web application. The system supports user registration/login, a virtual wallet, buy/sell transactions with broker commissions, dividend recording, portfolio tracking, and an admin monitoring dashboard. For a given stock symbol, the platform fetches historical market data, generates a **7-day forecast**, computes an error metric (RMSE), summarizes recent sentiment (positive/negative/neutral), and provides a combined decision recommendation.
+
+**Keywords**: Stock price prediction, linear regression, sentiment analysis, portfolio management, Flask, time series.
+
+# TABLE OF CONTENTS
+
+```text
+TABLE OF CONTENTS
+
+DECLARATION...............................................................i
+ACKNOWLEDGMENTS (Optional)................................................ii
+ABSTRACT..................................................................iii
+TABLE OF CONTENTS..........................................................iv
+LIST OF FIGURES..............................................................v
+LIST OF TABLES..............................................................vi
+
+CHAPTERS 1- INTRODUCTION...................................................1
+  1.1 Background...........................................................1
+  1.2 Problem Definition...................................................2
+  1.3 Project Overview.....................................................3
+  1.4 Scope.................................................................3
+  1.5 Technology Stack.....................................................4
+
+CHAPTERS 2- LITERATURE REVIEW..............................................5
+  2.1 Stock Market Forecasting.............................................5
+  2.2 Linear Regression for Short-Horizon Forecasting......................6
+  2.3 Sentiment Analysis for Financial News................................6
+  2.4 Gaps Identified......................................................7
+
+CHAPTERS 3- OBJECTIVES......................................................8
+  3.1 Project Objectives...................................................8
+  3.2 Scope Summary........................................................8
+
+CHAPTERS 4- METHODOLOGY....................................................9
+  4.1 System Requirements..................................................9
+  4.2 Data Collection and Preprocessing...................................10
+  4.3 Linear Regression Forecasting Method.................................11
+  4.4 Sentiment Analysis Method...........................................12
+  4.5 System Architecture and Design......................................13
+  4.6 Implementation Overview.............................................14
+
+CHAPTERS 5- RESULTS AND DISCUSSIONS........................................15
+  5.1 Evaluation Metrics..................................................15
+  5.2 Output Screens......................................................16
+  5.3 Discussion..........................................................17
+
+CHAPTERS 6- FUTURE WORK...................................................18
+  6.1 Conclusion..........................................................18
+  6.2 Future Enhancements.................................................19
+
+REFERENCES or BIBLIOGRAPHY................................................20
+APPENDICES (Optional)
+  Appendix A..............................................................21
+  Appendix B..............................................................22
+  Appendix C..............................................................23
+```
+
+# LIST OF FIGURES
+
+```text
+Figure-1: Use Case Diagram..................................................v
+Figure-2: Level 0 Data Flow Diagram (DFD)...................................v
+Figure-3: Portfolio Management DFD (Level 1)................................v
+Figure-4: Entity Relationship Diagram.......................................v
+Figure-5: Project Gantt Chart...............................................v
+Figure-6: Home / Prediction Studio (Screenshot).............................v
+Figure-7: Results Page Output (Screenshot)..................................v
+Figure-8: User Portfolio Dashboard (Screenshot).............................v
+Figure-9: Admin Dashboard (Screenshot)......................................v
+```
+
+# LIST OF TABLES
+
+```text
+Table-1: Major Modules and Responsibilities................................vi
+```
+
+# CHAPTER 1: INTRODUCTION
+
+The financial market is influenced by a combination of historical price patterns, macro events, and public sentiment. Retail investors and students often lack an integrated platform that combines price forecasting, news-based sentiment context, and a safe sandbox to test portfolio decisions. This project implements a Stock Price Prediction and Management system that integrates forecasting and sentiment analysis within a simulated trading and portfolio management workflow.
+
+## 1.1 Background
+
+Stock forecasting models attempt to learn relationships from historical price series, while sentiment analysis estimates how recent news or social discussions may influence market expectations. When combined, these signals can provide a more informative decision-support view than either source alone.
+
+## 1.2 Problem Definition
+
+Most stock-prediction demonstrations provide either:
+- forecasting models without user-facing workflows, or
+- trading simulators without integrated analytics.
+
+This project bridges this gap by offering a single platform that fetches market data, generates short-horizon forecasts, computes model error, extracts news sentiment, and provides an interpretable recommendation in a simulated trading environment.
+
+## 1.3 Project Overview
+
+The Stock Price Prediction and Management system provides a unified web application that supports:
+- short-horizon stock forecasting using Linear Regression,
+- recent financial-news sentiment analysis,
+- simulated trading and portfolio tracking,
+- and an admin monitoring dashboard.
+
+## 1.4 Scope
+
+### 1.4.1 In Scope
+
+- Full-stack Flask web application
+- Role-based authentication (`user` / `admin`)
+- Market data retrieval (primary: `yfinance`; fallback: Alpha Vantage)
+- Stock price forecasting using **Linear Regression** (7-day horizon)
+- Multi-source news sentiment engine with fallbacks
+- Portfolio tracking: holdings, transactions, dividends, wallet, broker commission
+- Admin dashboard: brokers, transactions, users, companies, summary statistics
+
+### 1.4.2 Out of Scope
+
+- Real brokerage integration / real-money trading
+- Advanced MLOps (scheduled retraining, model registry, experiment tracking)
+- Production hardening (distributed caches, job queues, multi-tenant scaling)
+
+## 1.5 Technology Stack
+
+- **Backend**: Python, Flask
+- **Database/ORM**: SQLite, SQLAlchemy
+- **ML & Analytics**: scikit-learn (Linear Regression), pandas, numpy
+- **Sentiment / NLP**: NLTK VADER, TextBlob, BeautifulSoup, requests, newspaper3k, aiohttp, tenacity
+- **Frontend**: HTML/CSS, Bootstrap, JavaScript, D3.js
+
+# CHAPTER 2: LITERATURE REVIEW
+
+## 2.1 Stock Market Forecasting
+
+Stock market forecasting aims to estimate future prices or trends using historical market data and auxiliary signals (for example, financial news sentiment). Recent research increasingly combines deep learning with sentiment signals to improve forecasting robustness under changing market conditions. Ko and Chang [1] propose an LSTM-based framework that integrates sentiment analysis to improve predictive performance. More recent work expands this idea using social media sentiment as an additional explanatory signal, demonstrating that sentiment features can complement price-history features [2].
+
+## 2.2 Linear Regression for Short-Horizon Forecasting
+
+Linear Regression is widely used as a baseline model due to its simplicity, interpretability, and low computational cost. In systems that must provide quick responses (such as web applications), a lightweight regression model can be practical for short-horizon forecasts. While several reviewed studies use deep recurrent models for improved accuracy [1], [2], a baseline approach remains useful to establish an interpretable reference point and to support faster user-facing inference.
+
+## 2.3 Sentiment Analysis for Financial News
+
+Sentiment analysis converts financial headlines and posts into polarity signals that reflect optimistic or pessimistic market tone. Darapaneni et al. [3] show how sentiment analysis combined with deep learning can support stock prediction in Indian markets. Gupta et al. [4] propose a forecasting model that explicitly fuses historical prices and sentiment signals, reinforcing the idea that multi-source sentiment can act as a useful supplementary feature.
+
+## 2.4 Gaps Identified
+
+Shahbandari et al. [5] highlight the value of using multi-faceted information for prediction, but many research prototypes do not provide a complete user-facing system that includes portfolio simulation and decision-support views. A key gap addressed by this project is the end-to-end integration of:
+- stock price forecasting (implemented using Linear Regression for fast inference),
+- sentiment summarization for contextual interpretation,
+- and a simulated portfolio management workflow with dashboards.
+
+# CHAPTER 3: OBJECTIVES
+
+## 3.1 Project Objectives
+
+- **Stock Forecasting**: Predict near-term prices and produce a 7-day forecast using Linear Regression.
+- **Sentiment Analysis**: Fetch recent market news and compute polarity (positive/negative/neutral).
+- **Decision Support**: Combine price-direction signal and sentiment polarity into a recommendation.
+- **Portfolio Simulation**: Virtual wallet, holdings, buy/sell operations, commissions, dividends, transaction history.
+- **Administration**: Admin monitoring dashboard and broker configuration.
+
+## 3.2 Scope Summary
+
+The system focuses on prediction + sentiment + simulation for learning and experimentation. It is not designed for real-money execution.
+
+# CHAPTER 4: METHODOLOGY
+
+## 4.1 System Requirements
+
+### 4.1.1 Hardware Requirements (Minimum)
+
+- **Processor**: Dual-core CPU or better
+- **RAM**: 4 GB (8 GB recommended)
+- **Storage**: 1 GB free space
+- **Internet**: Required (market data + news sentiment)
+
+### 4.1.2 Software Requirements
+
+- **Operating System**: Windows / Linux / macOS
+- **Python**: 3.7+
+- **Libraries**: as listed in `requirements.txt`
+
+## 4.2 Data Collection and Preprocessing
+
+### 4.2.1 Market Data Acquisition
+
+For a selected ticker symbol, the system:
+- checks local `{TICKER}.csv` cache and reuses it if up-to-date,
+- otherwise downloads ~2 years of historical price data using `yfinance`,
+- falls back to Alpha Vantage if the primary source fails.
+
+### 4.2.2 Data Cleaning
+
+- Missing values are removed (`dropna`).
+- Relevant fields such as `Close` are used as the primary signal.
+
+## 4.3 Linear Regression Forecasting Method
+
+- A forecast horizon of **7 days** is selected.
+- A target column is created using shift: `Close after n days`.
+- Standard scaling is applied.
+- Linear Regression is trained and used to forecast the next 7 days.
+- Model error is computed using RMSE on a held-out split.
+
+## 4.4 Sentiment Analysis Method
+
+- Recent headlines/news are gathered for the given ticker.
+- Sentiment scores are computed and aggregated.
+- Final outputs include polarity and distribution counts (positive/negative/neutral).
+
+## 4.5 System Architecture and Design
+
+### 4.5.1 Architectural Overview
+
+The application follows a three-tier architecture:
+- **Presentation Layer**: HTML templates and dashboards
+- **Application Layer**: Flask routes and business logic
+- **Data Layer**: SQLite database via SQLAlchemy
+
+### 4.5.2 Use Case Diagram
+
+<p align="center">
+  <img src="docs/diagrams/exported/usecase_diagram.png" width="750" />
+</p>
+<p align="center"><b>Figure 1.</b> Use Case Diagram</p>
+
+### 4.5.3 Data Flow Diagram (Level 0)
+
+<p align="center">
+  <img src="docs/diagrams/exported/dfd_level0.png" width="750" />
+</p>
+<p align="center"><b>Figure 2.</b> Level 0 Data Flow Diagram (DFD)</p>
+
+### 4.5.4 Portfolio DFD (Level 1)
+
+<p align="center">
+  <img src="docs/diagrams/exported/dfd_portfolio_level1.png" width="750" />
+</p>
+<p align="center"><b>Figure 3.</b> Portfolio Management DFD (Level 1)</p>
+
+### 4.5.5 Database Design (ER Diagram)
+
+<p align="center">
+  <img src="docs/diagrams/exported/er_diagram.png" width="750" />
+</p>
+<p align="center"><b>Figure 4.</b> Entity Relationship Diagram</p>
+
+### 4.5.6 Project Plan (Gantt Chart)
+
+<p align="center">
+  <img src="docs/diagrams/exported/project_gantt.png" width="750" />
+</p>
+<p align="center"><b>Figure 5.</b> Project Gantt Chart</p>
+
+**Table 1. Major Modules and Responsibilities**
+
+| Module | File/Component | Responsibility | Key Inputs | Key Outputs |
+|---|---|---|---|---|
+| Web Application | `main.py` | Routes, authentication, portfolio simulation, prediction orchestration | HTTP requests, ticker symbol, user session | HTML pages, DB updates |
+| Sentiment Engine | `news_sentiment.py` | News retrieval + polarity scoring (pos/neg/neutral) | Ticker/company keywords, news sources | Polarity score, sentiment distribution, headlines |
+| UI Templates | `templates/` | Pages: prediction results, user dashboard, admin dashboard | Render context from Flask | HTML UI |
+| Static Assets | `static/` | Styling, scripts, D3 charts | Client-side events | Interactive charts/widgets |
+| Database | SQLite + SQLAlchemy models | Persistent storage of users, holdings, transactions, dividends | CRUD operations | Stored application state |
+
+## 4.6 Implementation Overview
+
+- `main.py`: Flask app entry point (routes, DB models, prediction orchestration)
+- `news_sentiment.py`: sentiment analysis module
+- `templates/`: prediction results, user dashboard, admin dashboard
+- `static/`: styling and client-side scripts (including charts)
+
+# CHAPTER 5: RESULTS AND DISCUSSIONS
+
+## 5.1 Evaluation Metrics
+
+- **RMSE (Root Mean Squared Error)** is computed for the active forecasting model (Linear Regression) and displayed on the results page.
+
+## 5.2 Output Screens (Required)
+
+The guideline images you shared include Figures and Tables; this report should also include application screenshots.
+
+**Insert the following screenshots here (add images to the repo and reference them below):**
+
+1. **Figure 6.** Home / Prediction Studio page (ticker input)
+2. **Figure 7.** Results page showing:
+   - RMSE
+   - 7-day forecast table
+   - sentiment distribution chart
+3. **Figure 8.** User portfolio dashboard
+4. **Figure 9.** Admin dashboard
+
+*(Note: `screenshots/` directory is not present in this workspace, so the report cannot auto-embed these UI screenshots.)*
+
+## 5.3 Discussion
+
+- The system provides a unified view combining technical forecasting and sentiment context.
+- The Linear Regression model is used in runtime for fast response time.
+- The sentiment engine is designed with fallbacks to remain usable even when some sources are unavailable.
+
+# CHAPTER 6: FUTURE WORK
+
+## 6.1 Conclusion
+
+This project delivers an end-to-end application for stock trend exploration in a risk-free simulated environment. It integrates market data collection, model-based forecasting, sentiment analysis, and portfolio management with user/admin workflows.
+
+## 6.2 Future Enhancements
+
+- Improve the Linear Regression workflow by allowing users to configure the forecast horizon (e.g., 3/5/7 days) on the UI
+- Add technical indicators (RSI, MACD, moving averages) as additional model features
+- Add walk-forward validation and backtesting
+- Add async job handling for heavy sentiment scraping
+- Secure API keys via environment variables and improve deployment hardening
+
+# REFERENCES or BIBLIOGRAPHY
+
+[1] C.-R. Ko and H.-T. Chang, "LSTM-based sentiment analysis for stock price forecast," PeerJ Computer Science, vol. 7, pp. 1–23, Mar. 2021.
+
+[2] S. Ouf, M. El Hawary, A. Aboutabl, and S. Adel, "A deep learning-based LSTM for stock price prediction using Twitter sentiment analysis," International Journal of Advanced Computer Science and Applications, vol. 15, no. 12, pp. 244–253, Dec. 2024.
+
+[3] N. Darapaneni, A. R. Paduri, H. Sharma, M. Manjrekar, N. Hindlekar, P. Bhagat, U. Aiyer, and Y. Agarwal, "Stock price prediction using sentiment analysis and deep learning for Indian markets," arXiv:2204.05783, Feb. 2022.
+
+[4] I. Gupta, T. K. Madan, S. Singh, and A. K. Singh, "HiSA-SMFM: Historical and sentiment analysis based stock market forecasting model," arXiv:2203.08143, Mar. 2022.
+
+[5] L. Shahbandari, E. Moradi, and M. Manthouri, "Stock price prediction using multi-faceted information based on deep recurrent neural networks," arXiv:2411.19766, Dec. 2024.

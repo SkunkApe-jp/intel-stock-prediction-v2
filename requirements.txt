@@ -1,0 +1,25 @@
+# tensorflow
+nltk>=3.5
+# keras
+numpy
+seaborn==0.11.1
+textblob==0.15.3
+flask
+pandas
+matplotlib
+scikit-learn
+statsmodels
+yfinance
+alpha_vantage==2.3.1
+gunicorn
+htmldate
+finvader
+newspaper3k
+aiohttp
+flask_sqlalchemy
+webdriver-manager
+lxml_html_clean
+selenium
+requests
+beautifulsoup4
+tenacity

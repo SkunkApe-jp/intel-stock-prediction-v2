@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo-2.png') }}">
+    <title>SAMS</title>
+
+    <!-- Google Fonts: Milonga -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Milonga&display=swap" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='owl.carousel.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='owl.theme.default.min.css') }}" rel="stylesheet" />
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('static', filename='bootstrap.min-RES.css') }}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='helper.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style-RES.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='neubrutalist.css') }}" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
+    <!--[if lt IE 9]>
+    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="header-fix fix-sidebar">
+    <!-- Main wrapper  -->
+    <div id="main-wrapper">
+
+        <div class="navbar-collapse">
+            <!-- toggle and nav items -->
+            <ul class="navbar-nav mr-auto mt-md-0">
+                <!-- This is  -->
+                <li class="nav-item"> <a class="nav-link toggle-nav hidden-md-up text-muted"
+                        href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                <li class="nav-item m-l-10"> <a class="nav-link sidebartoggle hidden-sm-down text-muted"
+                        href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+            </ul>
+        </div>
+    </div>
+    <!-- End header header -->
+    <!-- Left Sidebar  -->
+    <div class="left-sidebar">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar">
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav">
+                <ul id="sidebar-menu">
+                    <li class="nav-devider"></li>
+                    <br>
+                    <li class="nav-label"><a href="{{ url_for('index') }}">HOME</a></li>
+                    <li class="nav-label"><a href="{{ url_for('index') }}#home">PREDICTION STUDIO</a></li>
+                    <li class="nav-label"><a href="{{ url_for('dashboard') }}">DASHBOARD</a></li>
+                </ul>
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+    </div>
+    <!-- End Left Sidebar  -->
+
+    <!-- Page wrapper  -->
+    <div class="page-wrapper">
+        <!-- Bread crumb -->
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h3 class="text-primary">{{quote}} overview</h3>
+                <small class="text-muted">Realtime snapshot, model forecasts, and recent sentiment in one calm
+                    view.</small>
+            </div>
+            <div class="col-md-7 align-self-center">
+            </div>
+        </div>
+        <!-- End Bread crumb -->
+
+        <!-- Container fluid  -->
+        <div class="container-fluid">
+            <!-- Price snapshot -->
+            <div class="row">
+                <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                    <div class="card bg-primary p-20 h-100">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-bag f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{open_s}}</h2>
+                                <p class="m-b-0 text-white">OPEN</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                    <div class="card bg-warning p-20 h-100">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-arrow-up f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{high_s}}</h2>
+                                <p class="m-b-0 text-white">HIGH</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                    <div class="card bg-success p-20 h-100">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-arrow-down f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{low_s}}</h2>
+                                <p class="m-b-0 text-white">LOW</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                    <div class="card bg-danger p-20 h-100">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-signal f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{vol}}</h2>
+                                <p class="m-b-0 text-white">VOLUME</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model performance -->
+            <div class="row">
+                <!-- ARIMA section hidden - LR only mode -->
+                <div class="col-12 col-lg-6 mb-4" style="display: none;">
+                    <div class="card h-100">
+                        <div class="card-title">
+                            <h4>ARIMA model accuracy</h4>
+                        </div>
+                        <div class="sales-chart text-center">
+                            <!-- Replace static image with D3 chart -->
+                            <div id="arima-chart-container">
+                                <div id="arima-controls" style="margin-bottom: 10px; text-align: center;">
+                                    <label for="arima-voronoi">Show voronoi:</label>
+                                    <input type="checkbox" id="arima-voronoi">
+                                </div>
+                                <div id="arima-chart" style="width: 100%; height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- LSTM section hidden - LR only mode -->
+                <div class="col-12 col-lg-6 mb-4" style="display: none;">
+                    <div class="card h-100">
+                        <div class="card-title">
+                            <h4>LSTM model accuracy</h4>
+                        </div>
+                        <div class="team-chart text-center">
+                            <!-- Replace static image with D3 chart -->
+                            <div id="lstm-chart-container">
+                                <div id="lstm-controls" style="margin-bottom: 10px; text-align: center; display: none;">
+                                    <label for="lstm-voronoi">Show voronoi:</label>
+                                    <input type="checkbox" id="lstm-voronoi">
+                                </div>
+                                <div id="lstm-chart" style="width: 100%; height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-12 mb-4">
+                    <div class="card h-100">
+                        <div class="card-title">
+                            <h4>Linear Regression model accuracy</h4>
+                        </div>
+                        <div class="team-chart text-center">
+                            <!-- Replace static image with D3 chart -->
+                            <div id="lr-chart-container">
+                                <div id="lr-controls" style="margin-bottom: 10px; text-align: center; display: none;">
+                                    <label for="lr-voronoi">Show voronoi:</label>
+                                    <input type="checkbox" id="lr-voronoi">
+                                </div>
+                                <div id="lr-chart" style="width: 100%; height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Model error metrics -->
+            <div class="row">
+                <!-- ARIMA error hidden - LR only mode -->
+                <div class="col-12 col-lg-4 mb-4" style="display: none;">
+                    <div class="card bg-primary p-20 h-100">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-vector f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{error_arima}}</h2>
+                                <p class="m-b-0 text-white">ARIMA RMSE</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- LSTM error hidden - LR only mode -->
+                <div class="col-12 col-lg-4 mb-4" style="display: none;">
+                    <div class="card bg-primary p-20 h-100">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-comment f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{error_lstm}}</h2>
+                                <p class="m-b-0 text-white">LSTM RMSE</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-12 mb-4">
+                    <div class="card bg-primary p-20 h-100">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-location-pin f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{error_lr}}</h2>
+                                <p class="m-b-0 text-white">Linear Regression RMSE</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News + sentiment + 7-day trajectory -->
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card h-100">
+                        <div class="card-title">
+                            <h4>Recent news about {{quote}}</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Posts</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                {% for sentiment in sentiment_list %}
+                                                {{sentiment}}<br>
+                                                {% endfor %}
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-title">
+                            <h4>Sentiment analysis for {{quote}}</h4>
+                        </div>
+                        <div class="sales-chart text-center">
+                            <div id="sentiment-pie-chart" style="width: 100%; height: 350px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-title">
+                            <h4>Predicted {{quote}} price for the next 7 days</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Day</th>
+                                            <th>Price Forecast</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for row in forecast_set %}
+                                        <tr>
+                                            <td>Day {{ loop.index }}</td>
+                                            <td><strong>{{ row[0]|round(2) }}</strong></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overall sentiment / recommendation -->
+            <div class="row">
+                <div class="col-12 col-lg-4 mb-4">
+                    <div class="card bg-success p-20 h-100">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-heart f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{sentiment_pol}}</h2>
+                                <p class="m-b-0 text-white">Overall sentiment polarity</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8 mb-4">
+                    <div class="card bg-primary p-20 h-100">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-comment f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white" style="text-align: left;">According to the ML
+                                    predictions and sentiment analysis, a {{idea}} in {{quote}} stock is expected ⇒
+                                    {{decision}}</h2>
+                                <p class="m-b-0 text-white">Recommendation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Page Content -->
+        </div>
+        <!-- End Container fluid  -->
+
+        <!-- footer removed: not relevant to management/prediction UI -->
+    </div>
+    <!-- End Page wrapper  -->
+    </div>
+    <!-- End main wrapper -->
+
+    <!-- End Wrapper -->
+    <!-- All Jquery -->
+    <script src="{{url_for('static', filename='jquery-RES.min.js ')}}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="{{url_for('static', filename='popper.min.js')}}"></script>
+    <script src="{{url_for('static', filename='bootstrap-RES.min.js')}}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="{{url_for('static', filename='jquery.slimscroll.js')}}"></script>
+    <!--Menu sidebar -->
+    <script src="{{url_for('static', filename='sidebarmenu.js')}}"></script>
+    <!--stickey kit -->
+    <script src="{{url_for('static', filename='sticky-kit.min.js')}}"></script>
+
+    <script src="{{url_for('static', filename='d3.min.js')}}"></script>
+    <script src="{{url_for('static', filename='topojson.js')}}"></script>
+    <script src="{{url_for('static', filename='datamaps.world.min.js')}}"></script>
+    <script src="{{url_for('static', filename='datamap-init.js')}}"></script>
+
+    <script src="{{url_for('static', filename='jquery.simpleWeather.min.js')}}"></script>
+    <script src="{{url_for('static', filename='weather-init.js')}}"></script>
+    <script src="{{url_for('static', filename='owl.carousel.min.js')}}"></script>
+    <script src="{{url_for('static', filename='owl.carousel-init.js')}}"></script>
+
+    <!-- Echart -->
+    <script src="{{url_for('static', filename='echarts.js')}}"></script>
+    <script src="{{url_for('static', filename='dashboard1-init.js')}}"></script>
+    <!--Custom JavaScript -->
+    <script src="{{url_for('static', filename='custom.min.js')}}"></script>
+
+    <!-- Add D3.js library and chart initialization scripts -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        // Function to create an interactive sentiment pie chart
+        function createSentimentPieChart(containerId, pos, neg, neu) {
+            const width = document.getElementById(containerId).clientWidth;
+            const height = 350;
+            const radius = Math.min(width, height) / 2 - 40;
+
+            // Clear previous chart
+            d3.select("#" + containerId).selectAll("*").remove();
+
+            const svg = d3.select("#" + containerId)
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", `translate(${width / 2}, ${height / 2})`);
+
+            const data = [
+                { label: "Positive", value: pos, color: "#2ecc71" },
+                { label: "Negative", value: neg, color: "#e74c3c" },
+                { label: "Neutral", value: neu, color: "#95a5a6" }
+            ].filter(d => d.value > 0);
+
+            // If no data, show message
+            if (data.length === 0) {
+                svg.append("text")
+                    .attr("text-anchor", "middle")
+                    .style("font-size", "14px")
+                    .text("No sentiment data available");
+                return;
+            }
+
+            const pie = d3.pie()
+                .value(d => d.value)
+                .sort(null);
+
+            const arc = d3.arc()
+                .innerRadius(radius * 0.5) // Donut shape
+                .outerRadius(radius);
+
+            const hoverArc = d3.arc()
+                .innerRadius(radius * 0.5)
+                .outerRadius(radius + 10);
+
+            const arcs = svg.selectAll("arc")
+                .data(pie(data))
+                .enter()
+                .append("g")
+                .attr("class", "arc");
+
+            arcs.append("path")
+                .attr("d", arc)
+                .attr("fill", d => d.data.color)
+                .attr("stroke", "white")
+                .style("stroke-width", "2px")
+                .style("cursor", "pointer")
+                .on("mouseover", function (event, d) {
+                    d3.select(this).transition().duration(200).attr("d", hoverArc);
+
+                    const tooltip = d3.select("body").append("div")
+                        .attr("class", "tooltip")
+                        .style("opacity", 0)
+                        .style("position", "absolute")
+                        .style("background", "rgba(0,0,0,0.8)")
+                        .style("color", "white")
+                        .style("padding", "8px")
+                        .style("border-radius", "4px")
+                        .style("pointer-events", "none");
+
+                    tooltip.html(`<strong>${d.data.label}</strong>: ${d.data.value} articles`)
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 20) + "px");
+
+                    tooltip.transition().duration(200).style("opacity", 0.9);
+                })
+                .on("mouseout", function () {
+                    d3.select(this).transition().duration(200).attr("d", arc);
+                    d3.selectAll(".tooltip").remove();
+                });
+
+            // Add center text
+            svg.append("text")
+                .attr("text-anchor", "middle")
+                .attr("dy", "-0.5em")
+                .style("font-size", "14px")
+                .style("font-weight", "bold")
+                .text("Sentiment");
+
+            svg.append("text")
+                .attr("text-anchor", "middle")
+                .attr("dy", "1em")
+                .style("font-size", "12px")
+                .text(`Total: ${pos + neg + neu}`);
+
+            // Add Legend
+            const legend = svg.append("g")
+                .attr("transform", `translate(${radius + 20}, ${-radius + 20})`);
+
+            data.forEach((d, i) => {
+                const legendRow = legend.append("g")
+                    .attr("transform", `translate(0, ${i * 20})`);
+
+                legendRow.append("rect")
+                    .attr("width", 12)
+                    .attr("height", 12)
+                    .attr("fill", d.color);
+
+                legendRow.append("text")
+                    .attr("x", 20)
+                    .attr("y", 10)
+                    .attr("text-anchor", "start")
+                    .style("font-size", "12px")
+                    .text(d.label);
+            });
+        }
+        // Function to create a multi-line chart with voronoi toggle
+        function createMultiLineChart(containerId, actualData, predictedData, title, voronoiToggleId) {
+            // Set dimensions and margins
+            const margin = { top: 20, right: 30, bottom: 50, left: 60 };
+            const width = document.getElementById(containerId).clientWidth - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            // Clear previous chart
+            d3.select("#" + containerId).selectAll("*").remove();
+
+            // Create SVG
+            const svg = d3.select("#" + containerId)
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .attr("viewBox", [0, 0, width + margin.left + margin.right, height + margin.top + margin.bottom])
+                .attr("style", "max-width: 100%; height: auto; overflow: visible; font: 10px sans-serif;")
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
+            // Prepare data
+            const actualPoints = actualData.map((d, i) => ({ index: i, value: d, type: "Actual" }));
+            const predictedPoints = predictedData.map((d, i) => ({ index: i, value: d, type: "Predicted" }));
+            const allData = [...actualPoints, ...predictedPoints];
+
+            // Get min/max values for axes
+            const xMin = d3.min(allData, d => d.index);
+            const xMax = d3.max(allData, d => d.index);
+            const yMin = d3.min(allData, d => d.value);
+            const yMax = d3.max(allData, d => d.value);
+
+            // Add padding to y-axis
+            const yPadding = (yMax - yMin) * 0.1;
+
+            // Create scales
+            const xScale = d3.scaleLinear()
+                .domain([xMin, xMax])
+                .range([0, width]);
+
+            const yScale = d3.scaleLinear()
+                .domain([yMin - yPadding, yMax + yPadding])
+                .range([height, 0]);
+
+            // Create line generators
+            const actualLine = d3.line()
+                .x(d => xScale(d.index))
+                .y(d => yScale(d.value))
+                .curve(d3.curveMonotoneX);
+
+            const predictedLine = d3.line()
+                .x(d => xScale(d.index))
+                .y(d => yScale(d.value))
+                .curve(d3.curveMonotoneX);
+
+            // Add X axis
+            svg.append("g")
+                .attr("transform", `translate(0,${height})`)
+                .call(d3.axisBottom(xScale).ticks(width / 80).tickSizeOuter(0))
+                .selectAll("text")
+                .style("font-size", "12px");
+
+            // Add Y axis
+            svg.append("g")
+                .call(d3.axisLeft(yScale))
+                .call(g => g.select(".domain").remove())
+                .call(g => g.selectAll(".tick line").clone()
+                    .attr("x2", width)
+                    .attr("stroke-opacity", 0.1))
+                .selectAll("text")
+                .style("font-size", "12px");
+
+            // Add grid lines
+            svg.append("g")
+                .attr("class", "grid")
+                .attr("transform", `translate(0,${height})`)
+                .call(d3.axisBottom(xScale)
+                    .tickSize(-height)
+                    .tickFormat("")
+                )
+                .selectAll("line")
+                .attr("stroke", "#eee")
+                .attr("stroke-dasharray", "2,2");
+
+            svg.append("g")
+                .attr("class", "grid")
+                .call(d3.axisLeft(yScale)
+                    .tickSize(-width)
+                    .tickFormat("")
+                )
+                .selectAll("line")
+                .attr("stroke", "#eee")
+                .attr("stroke-dasharray", "2,2");
+
+            // Add X axis label
+            svg.append("text")
+                .attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`)
+                .style("text-anchor", "middle")
+                .style("font-size", "14px")
+                .text("Time Period");
+
+            // Add Y axis label
+            svg.append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 0 - margin.left)
+                .attr("x", 0 - (height / 2))
+                .attr("dy", "1em")
+                .style("text-anchor", "middle")
+                .style("font-size", "14px")
+                .text("Price ($)");
+
+            // Compute the points in pixel space as [x, y, z], where z is the name of the series.
+            const points = [];
+            actualPoints.forEach(d => points.push([xScale(d.index), yScale(d.value), d.type, d.value, d.index]));
+            predictedPoints.forEach(d => points.push([xScale(d.index), yScale(d.value), d.type, d.value, d.index]));
+
+            // Add Voronoi overlay if checkbox is checked
+            const voronoiCheckbox = document.getElementById(voronoiToggleId);
+            if (voronoiCheckbox && voronoiCheckbox.checked) {
+                svg.append("path")
+                    .attr("fill", "none")
+                    .attr("stroke", "#ccc")
+                    .attr("d", d3.Delaunay
+                        .from(points)
+                        .voronoi([0, 0, width, height])
+                        .render());
+            }
+
+            // Add the actual line
+            svg.append("path")
+                .datum(actualPoints)
+                .attr("fill", "none")
+                .attr("stroke", "#1F77B4")
+                .attr("stroke-width", 2)
+                .attr("stroke-dasharray", "5,5") // Dotted line for actual
+                .attr("d", actualLine);
+
+            // Add the predicted line
+            svg.append("path")
+                .datum(predictedPoints)
+                .attr("fill", "none")
+                .attr("stroke", "#4B73B1")
+                .attr("stroke-width", 2)
+                .attr("d", predictedLine);
+
+            // Add circles for data points on actual line
+            svg.selectAll(".actual-point")
+                .data(actualPoints)
+                .enter().append("circle")
+                .attr("class", "actual-point")
+                .attr("cx", d => xScale(d.index))
+                .attr("cy", d => yScale(d.value))
+                .attr("r", 0)
+                .attr("fill", "#1F77B4")
+                .on("mouseover", function (event, d) {
+                    d3.select(this).attr("r", 0);
+                    // Add tooltip
+                    const tooltip = d3.select("#" + containerId).append("div")
+                        .attr("class", "tooltip")
+                        .style("position", "absolute")
+                        .style("background", "rgba(0, 0, 0, 0.8)")
+                        .style("color", "white")
+                        .style("padding", "5px")
+                        .style("border-radius", "3px")
+                        .style("font-size", "12px")
+                        .style("pointer-events", "none")
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 20) + "px")
+                        .html(`Actual: ${d.value.toFixed(2)}<br/>Period: ${d.index}`);
+
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                })
+                .on("mouseout", function () {
+                    d3.select(this).attr("r", 0);
+                    // Remove tooltip
+                    d3.selectAll(".tooltip").remove();
+                });
+
+            // Add circles for data points on predicted line
+            svg.selectAll(".predicted-point")
+                .data(predictedPoints)
+                .enter().append("circle")
+                .attr("class", "predicted-point")
+                .attr("cx", d => xScale(d.index))
+                .attr("cy", d => yScale(d.value))
+                .attr("r", 0)
+                .attr("fill", "#4B73B1")
+                .on("mouseover", function (event, d) {
+                    d3.select(this).attr("r", 0);
+                    // Add tooltip
+                    const tooltip = d3.select("#" + containerId).append("div")
+                        .attr("class", "tooltip")
+                        .style("position", "absolute")
+                        .style("background", "rgba(0, 0, 0, 0.8)")
+                        .style("color", "white")
+                        .style("padding", "5px")
+                        .style("border-radius", "3px")
+                        .style("font-size", "12px")
+                        .style("pointer-events", "none")
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 20) + "px")
+                        .html(`Predicted: ${d.value.toFixed(2)}<br/>Period: ${d.index}`);
+
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                })
+                .on("mouseout", function () {
+                    d3.select(this).attr("r", 0);
+                    // Remove tooltip
+                    d3.selectAll(".tooltip").remove();
+                });
+
+            // Add legend
+            const legend = svg.append("g")
+                .attr("font-family", "sans-serif")
+                .attr("font-size", 12)
+                .attr("text-anchor", "start")
+                .attr("transform", `translate(${width - 120}, 20)`);
+
+            legend.append("rect")
+                .attr("x", 0)
+                .attr("width", 120)
+                .attr("height", 50)
+                .attr("fill", "white")
+                .attr("stroke", "#ccc")
+                .attr("stroke-width", 0.5);
+
+            legend.append("line")
+                .attr("x1", 10)
+                .attr("y1", 15)
+                .attr("x2", 30)
+                .attr("y2", 15)
+                .attr("stroke", "#1F77B4")
+                .attr("stroke-width", 2)
+                .attr("stroke-dasharray", "5,5");
+
+            legend.append("text")
+                .attr("x", 35)
+                .attr("y", 20)
+                .text("Actual Price");
+
+            legend.append("line")
+                .attr("x1", 10)
+                .attr("y1", 35)
+                .attr("x2", 30)
+                .attr("y2", 35)
+                .attr("stroke", "#4B73B1")
+                .attr("stroke-width", 2);
+
+            legend.append("text")
+                .attr("x", 35)
+                .attr("y", 40)
+                .text("Predicted Price");
+
+            // Add title
+            svg.append("text")
+                .attr("x", width / 2)
+                .attr("y", 0 - (margin.top / 2))
+                .attr("text-anchor", "middle")
+                .style("font-size", "16px")
+                .style("font-weight", "bold")
+                .text(title);
+
+            // Add interactive tip (hover slider + moving dot)
+            const focus = svg.append("g")
+                .attr("display", "none");
+
+            focus.append("line")
+                .attr("class", "hover-line")
+                .attr("y1", 0)
+                .attr("y2", height)
+                .attr("stroke", "#999")
+                .attr("stroke-dasharray", "3,3");
+
+            focus.append("circle")
+                .attr("class", "hover-dot")
+                .attr("r", 4)
+                .attr("fill", "#000");
+
+            focus.append("text")
+                .attr("class", "hover-text")
+                .attr("text-anchor", "middle")
+                .attr("y", -10);
+
+            // Add event listeners for interactivity
+            svg.on("pointerenter", () => pointerentered(svg, points, actualPoints, predictedPoints, focus, xScale, yScale))
+                .on("pointermove", (event) => pointermoved(event, svg, points, actualPoints, predictedPoints, focus, xScale, yScale))
+                .on("pointerleave", () => pointerleft(svg, focus));
+        }
+
+        // When the pointer moves, find the closest point, update the interactive tip, and highlight
+        // the corresponding line.
+        function pointermoved(event, svg, points, actualPoints, predictedPoints, focus, xScale, yScale) {
+            const [xm, ym] = d3.pointer(event);
+            const i = d3.leastIndex(points, ([x, y]) => Math.hypot(x - xm, y - ym));
+            const [x, y, k, value, index] = points[i];
+
+            // Highlight the corresponding line
+            const path = svg.selectAll("path");
+            path.style("stroke", (d) => {
+                if (d && d[0] && d[0].type === k) return null;
+                return "#ddd";
+            }).filter((d) => d && d[0] && d[0].type === k).raise();
+
+            // Move the hover group so the vertical line follows the cursor on X
+            focus.attr("transform", `translate(${x},0)`);
+
+            // Position the moving dot and label at the closest data point
+            focus.select("circle")
+                .attr("cy", y);
+
+            focus.select("text")
+                .attr("y", y - 10)
+                .text(`${k}: ${value.toFixed(2)} (t=${index})`);
+
+            // Dispatch input event (optional)
+            svg.node().value = points[i];
+            svg.dispatch("input", { bubbles: true });
+        }
+
+        function pointerentered(svg, points, actualPoints, predictedPoints, focus) {
+            const path = svg.selectAll("path");
+            path.style("mix-blend-mode", null).style("stroke", "#ddd");
+            focus.attr("display", null);
+        }
+
+        function pointerleft(svg, focus) {
+            const path = svg.selectAll("path");
+            path.style("mix-blend-mode", "multiply").style("stroke", null);
+            focus.attr("display", "none");
+            svg.node().value = null;
+            svg.dispatch("input", { bubbles: true });
+        }
+
+        // Initialize charts when the page loads
+        document.addEventListener("DOMContentLoaded", function () {
+            // Parse the data from Jinja2 template
+            var arimaActual = JSON.parse('{{ arima_actual | tojson }}');
+            var arimaPredicted = JSON.parse('{{ arima_predicted | tojson }}');
+            createMultiLineChart("arima-chart", arimaActual, arimaPredicted, "ARIMA Model: Actual vs Predicted", "arima-voronoi");
+
+            // LSTM Chart
+            var lstmActual = JSON.parse('{{ lstm_actual | tojson }}');
+            var lstmPredicted = JSON.parse('{{ lstm_predicted | tojson }}');
+            createMultiLineChart("lstm-chart", lstmActual, lstmPredicted, "LSTM Model: Actual vs Predicted", "lstm-voronoi");
+
+            // Linear Regression Chart
+            var lrActual = JSON.parse('{{ lr_actual | tojson }}');
+            var lrPredicted = JSON.parse('{{ lr_predicted | tojson }}');
+            createMultiLineChart("lr-chart", lrActual, lrPredicted, "Linear Regression Model: Actual vs Predicted", "lr-voronoi");
+
+            // Add event listeners to voronoi checkboxes
+            document.getElementById("arima-voronoi").addEventListener("change", function () {
+                var arimaActual = JSON.parse('{{ arima_actual | tojson }}');
+                var arimaPredicted = JSON.parse('{{ arima_predicted | tojson }}');
+                createMultiLineChart("arima-chart", arimaActual, arimaPredicted, "ARIMA Model: Actual vs Predicted", "arima-voronoi");
+            });
+
+            document.getElementById("lstm-voronoi").addEventListener("change", function () {
+                var lstmActual = JSON.parse('{{ lstm_actual | tojson }}');
+                var lstmPredicted = JSON.parse('{{ lstm_predicted | tojson }}');
+                createMultiLineChart("lstm-chart", lstmActual, lstmPredicted, "LSTM Model: Actual vs Predicted", "lstm-voronoi");
+            });
+
+            document.getElementById("lr-voronoi").addEventListener("change", function () {
+                var lrActual = JSON.parse('{{ lr_actual | tojson }}');
+                var lrPredicted = JSON.parse('{{ lr_predicted | tojson }}');
+                createMultiLineChart("lr-chart", lrActual, lrPredicted, "Linear Regression Model: Actual vs Predicted", "lr-voronoi");
+            });
+            // Sentiment Pie Chart
+            var pos = JSON.parse('{{ pos | tojson }}');
+            var neg = JSON.parse('{{ neg | tojson }}');
+            var neutral = JSON.parse('{{ neutral | tojson }}');
+            createSentimentPieChart("sentiment-pie-chart", pos, neg, neutral);
+        });
+
+        // Handle window resize
+        window.addEventListener("resize", function () {
+            // Re-render charts on window resize
+            setTimeout(function () {
+                var arimaActual = JSON.parse('{{ arima_actual | tojson }}');
+                var arimaPredicted = JSON.parse('{{ arima_predicted | tojson }}');
+                createMultiLineChart("arima-chart", arimaActual, arimaPredicted, "ARIMA Model: Actual vs Predicted", "arima-voronoi");
+
+                var lstmActual = JSON.parse('{{ lstm_actual | tojson }}');
+                var lstmPredicted = JSON.parse('{{ lstm_predicted | tojson }}');
+                createMultiLineChart("lstm-chart", lstmActual, lstmPredicted, "LSTM Model: Actual vs Predicted", "lstm-voronoi");
+
+                var lrActual = JSON.parse('{{ lr_actual | tojson }}');
+                var lrPredicted = JSON.parse('{{ lr_predicted | tojson }}');
+                createMultiLineChart("lr-chart", lrActual, lrPredicted, "Linear Regression Model: Actual vs Predicted", "lr-voronoi");
+
+                var pos = JSON.parse('{{ pos | tojson }}');
+                var neg = JSON.parse('{{ neg | tojson }}');
+                var neutral = JSON.parse('{{ neutral | tojson }}');
+                createSentimentPieChart("sentiment-pie-chart", pos, neg, neutral);
+            }, 100);
+        });
+    </script>
+    <style>
+        /* Add some basic styling for tooltips */
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px;
+            border-radius: 3px;
+            font-size: 12px;
+            pointer-events: none;
+        }
+
+        /* Style for grid lines */
+        .grid line {
+            stroke: #eee;
+            stroke-opacity: 0.7;
+            shape-rendering: crispEdges;
+        }
+
+        .grid path {
+            stroke-width: 0;
+        }
+
+        /* Style for controls */
+        #arima-controls,
+        #lstm-controls,
+        #lr-controls {
+            margin-bottom: 10px;
+            text-align: center;
+            font-family: sans-serif;
+            font-size: 14px;
+        }
+
+        #arima-controls input,
+        #lstm-controls input,
+        #lr-controls input {
+            margin-left: 5px;
+        }
+
+        /* Polished Yahoo Finance link beside the 7‑day forecast */
+        .yahoo-link-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 8px 0;
+        }
+
+        .btn-yahoo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid #4B73B1;
+            background: #f5f8ff;
+            color: #2f4b8f;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+        }
+
+        .btn-yahoo-link:hover {
+            background: #e3ebff;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+            text-decoration: none;
+            color: #223463;
+        }
+
+        .btn-yahoo-icon {
+            font-size: 12px;
+        }
+
+        .yahoo-link-subtitle {
+            margin-top: 4px;
+            font-size: 11px;
+            color: #7b8a9a;
+        }
+    </style>
+</body>
+
+</html>
