@@ -343,15 +343,46 @@ This project delivers an end-to-end application for stock trend exploration in a
 
 ## 6.2 Future Enhancements
 
-- Improve the Linear Regression workflow by allowing users to configure the forecast horizon (e.g., 3/5/7 days) on the UI
-- Implement multiple linear regression with additional features as suggested by recent research [4], [5]
-- Add technical indicators (RSI, MACD, moving averages) as additional model features to enhance prediction accuracy [2]
-- Implement feature selection techniques to identify the most significant predictors [3]
-- Add walk-forward validation and backtesting capabilities to evaluate model performance over time
-- Implement ensemble methods combining multiple linear models for improved robustness
-- Add async job handling for heavy sentiment scraping operations
-- Secure API keys via environment variables and improve deployment hardening
-- Develop comparative analysis tools to evaluate different regression configurations
+1. Notification System
+
+2. Reporting System
+
+3. Logging and Monitoring
+
+4. Testing Implementation
+
+5. Deployment Preparation
+
+6. Final Integration and Testing
+
+7. Documentation and Cleanup
+
+8. Comprehensive Performance Testing
+
+9. Comprehensive Security Testing
+
+10. Usability Testing
+
+11. Compatibility Testing
+
+12. Accessibility Testing
+
+13. Regression Testing Suite
+
+14. Recovery and Resilience Testing
+
+15. Acceptance Testing
+
+16. Test Automation and CI/CD Integration
+
+17. Testing Documentation and Knowledge Transfer
+
+18. Enhanced Invoice Generation System
+
+19. Volume-Based Prediction Modeling per instructions from the jury.
+
+20. Administrative Dataset Management GUI per instructions from the jury.
+
 
 # REFERENCES or BIBLIOGRAPHY
 
